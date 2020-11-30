@@ -1,18 +1,24 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <authentication></authentication>
   </div>
 </template>
 
 <script lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
 import { Component, Vue } from 'vue-property-decorator';
+import Elections from './pages/Elections/Elections.vue';
+import Authentication from './pages/Authentication/Authentication.vue'; 
+import router from './routes';
 
 @Component({
   components : {
-    HelloWorld
-  }
+    HelloWorld,
+    Elections,
+    Authentication
+  },
+  router: router
 })
 export default class App extends Vue {
 }
