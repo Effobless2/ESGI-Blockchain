@@ -23,9 +23,6 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component({})
 class Header extends Vue {
-    mounted(){
-        console.log("caca");
-    }
     
 }
 
