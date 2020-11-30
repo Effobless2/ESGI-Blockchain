@@ -1,7 +1,7 @@
 <template>
     <h1>Authentication</h1>
 </template>
-<style scoped>
+<style scoped src="./Authentication.css">
 
 </style>
 <script lang="ts">

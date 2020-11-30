@@ -1,10 +1,7 @@
 <template>
     <h1>Elections</h1>
 </template>
-<style scoped>
-    h1 {
-        color: red;
-    }
+<style scoped src="./Elections.css">
 </style>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
