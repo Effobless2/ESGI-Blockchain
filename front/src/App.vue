@@ -2,19 +2,22 @@
   <div id="app">
     <main-header></main-header>
     <router-view></router-view>
+    <vue-metamask :userMessage="msg" @onComplete="onComplete"></vue-metamask>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
 import MainHeader from './layout/header/MainHeader.vue';
 import { Action } from 'vuex-class';
 import Election from './models/Election';
 import Web3 from 'web3';
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import VueMetamask from 'vue-metamask';
 
 @Component({
   components : {
-    MainHeader
+    MainHeader,
+    VueMetamask
   }
 })
 export default class App extends Vue {
@@ -29,6 +32,12 @@ export default class App extends Vue {
     web3.eth.defaultAccount = "0xCa8DBb32e202E08CDf8E1d8Fb13e8862A92d3043";
 
     this.initStore(web3);
+  }
+
+  msg = "This is demo net work";
+
+  onComplete(data: any){
+    console.log('data:', data);
   }
 }
 </script>
