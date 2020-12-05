@@ -13,6 +13,7 @@ import { mapActions } from 'vuex';
 import { Action, State } from 'vuex-class';
 import Elections from './models/Election';
 
+
 @Component({
   components : {
     MainHeader
