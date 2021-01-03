@@ -19,19 +19,21 @@ contract SmartElection {
 		balances[tx.origin] = 10000;
 	}
 
-    event ElectionAdded(address indexed by, string name);
+    event ElectionAdded(uint electionId, string name);
+    event CandidateAdded(uint electionId, uint candidateId, string candidateName);
 
 
-    function addElection(string memory electionName) public returns (bool success) {
+    function addElection(string memory electionName) public returns (uint electionId) {
         uint election_id = elections.length++;
         elections[election_id].name = electionName;
-        emit ElectionAdded(msg.sender, electionName);
-        return true;
+        emit ElectionAdded(election_id, electionName);
+        return election_id;
     }
 
     function addCandidatToElection(uint electionIndex, string memory candidateName) public returns (bool success) {
-        if (elections.length <= electionIndex) return false;
+        require(electionIndex <= elections.length);
         elections[electionIndex].candidats.push(Candidat(candidateName, 0));
+        emit CandidateAdded(electionIndex, elections[electionIndex].candidats.length - 1, candidateName);
         return true;
     }
 
