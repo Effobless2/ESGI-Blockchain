@@ -1,9 +1,9 @@
 import VueRouter from 'vue-router';
-import Authentication from './pages/Authentication/Authentication.vue';
+import Admin from './pages/Admin/Admin.vue';
 import Elections from './pages/Elections/Elections.vue';
 
 const routes = [
-  { path: '/', component: Authentication, name: 'authentication' },
+  { path: '/', component: Admin, name: 'authentication' },
   { path: '/elections', component: Elections, name: 'elections' }
 ]
 

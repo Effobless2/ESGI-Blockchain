@@ -1,8 +1,8 @@
 const ConvertLib = artifacts.require("ConvertLib");
-const TodoList = artifacts.require("TodoList");
+const SmartElection = artifacts.require("SmartElection");
 
 module.exports = function(deployer) {
+  deployer.deploy(SmartElection);
   deployer.deploy(ConvertLib);
-  deployer.link(ConvertLib, TodoList);
-  deployer.deploy(TodoList);
+  deployer.link(ConvertLib, SmartElection);
 };
