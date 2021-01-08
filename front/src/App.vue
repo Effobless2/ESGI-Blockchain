@@ -14,6 +14,7 @@ import Web3 from 'web3';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import VueMetamask from 'vue-metamask';
 
+
 @Component({
   components : {
     MainHeader,
