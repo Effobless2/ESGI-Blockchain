@@ -1,3 +1,6 @@
+var HDWalletProvider = require("truffle-hdwallet-provider");
+var mnemonic = "candy maple cake sugar pudding cream honey rich smooth crumble sweet treat";
+
 module.exports = {
   networks: {
     development: {
@@ -5,6 +8,12 @@ module.exports = {
       port: 7545,
       network_id: "*", // match any network
       websockets: true
+    },
+    kovan: {
+      provider: function() {
+        return new HDWalletProvider(mnemonic, "https://kovan.infura.io/v3/<API-KEY>");
+      },
+      network_id: 42
     },
     live: {
       host: "178.25.19.88", // Random IP for example purposes (do not use)

@@ -10,3 +10,7 @@
 
 ## Lancer le serveur front de développement
 - `npm run serve`
+
+## Pour deployer sur Kovan
+- `npm install --save truffle-hdwallet-provider`
+- Modifier la variable <API-KEY> dans truffle-config.js avec la clé donnée en créant un compte puis un projet sur https://infura.io/
