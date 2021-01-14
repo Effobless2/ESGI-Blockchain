@@ -10,7 +10,7 @@
             v-bind:id="`election_${election.id}`"
             accordion="accordionView">
             <b-card-body>
-                {{election.candidates}}
+                <election-details :election="election"> </election-details>
             </b-card-body>
         </b-collapse>
     </b-card>
@@ -21,7 +21,10 @@
 <script lang="ts">
 import Election from '@/models/Election';
 import {Component, Prop, Vue} from 'vue-property-decorator';
-@Component
+import ElectionDetails from "@/components/ElectionDetails/ElectionDetails.vue";
+@Component({
+    components: {ElectionDetails}
+})
 export default class ElectionItem extends Vue {
     @Prop({required: true})
     election!: Election;
