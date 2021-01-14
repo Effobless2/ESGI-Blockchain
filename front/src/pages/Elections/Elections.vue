@@ -8,5 +8,7 @@
 
     @Component
     export default class Elections extends Vue {
+        @Prop({required: true})
+        test!: number;
     }
 </script>

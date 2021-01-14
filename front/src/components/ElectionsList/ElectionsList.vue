@@ -1,8 +1,11 @@
 <template>
     <div>
-        <h2 v-for="e in elections">
-            {{e.name}}
-        </h2>
+        <h1>Les Elections</h1>
+        <election-item 
+            v-for="e in elections"
+            v-bind:key="`election_${e.id}`"
+            :election="e">
+        </election-item>
     </div>
 </template>
 
@@ -12,8 +15,13 @@
 
     import {Component, Prop, Vue} from 'vue-property-decorator';
     import Election from "@/models/Election";
+    import ElectionItem from '@/components/ElectionItem';
 
-    @Component
+    @Component({
+        components: {
+            ElectionItem
+        }
+    })
     export default class ElectionsList extends Vue {
 
         @Prop({required: true})
