@@ -3,6 +3,7 @@
         <h1>Administration</h1>
         <button v-on:click="AddElection">AddElection</button>
         <p>{{ elections }}</p>
+        <elections-list :elections="elections">  </elections-list>
     </div>
 </template>
 <style scoped src="./Admin.css">
@@ -13,8 +14,10 @@
     import {Component, Prop, Vue} from 'vue-property-decorator';
     import {mapActions} from 'vuex';
     import {Action, State} from 'vuex-class';
-
-    @Component
+    import ElectionsList from "@/components/ElectionsList/ElectionsList.vue";
+    @Component({
+        components: {ElectionsList}
+    })
     export default class Admin extends Vue {
 
         @State('elections')
