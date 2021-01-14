@@ -1,3 +1,13 @@
 h1 {
     color: rgb(255, 196, 4)
 }
+
+.mainCard {
+    margin: 0 300px;
+}
+
+
+.card-header:hover {
+    filter: brightness(75%);
+    cursor: pointer;
+}
