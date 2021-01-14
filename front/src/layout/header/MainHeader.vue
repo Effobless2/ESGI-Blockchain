@@ -19,12 +19,12 @@
 
 </style>
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+    import {Component, Prop, Vue} from 'vue-property-decorator';
 
-@Component({})
-class Header extends Vue {
-    
-}
+    @Component({})
+    class Header extends Vue {
 
-export default Header;
+    }
+
+    export default Header;
 </script>

@@ -1,4 +1,4 @@
-pragma solidity >=0.4.25 <0.7.0;
+pragma experimental ABIEncoderV2;
 
 contract SmartElection {
 
@@ -23,9 +23,12 @@ contract SmartElection {
     event CandidateAdded(uint electionId, uint candidateId, string candidateName);
 
 
-    function addElection(string memory electionName) public returns (uint electionId) {
+    function addElection(string memory electionName, string[] memory candidates) public returns (uint electionId) {
         uint election_id = elections.length++;
         elections[election_id].name = electionName;
+        for(uint i = 0; i < candidates.length; i++){
+            addCandidatToElection(election_id, candidates[i]);
+        }
         emit ElectionAdded(election_id, electionName);
         return election_id;
     }
@@ -47,26 +50,14 @@ contract SmartElection {
         return false;
     }
 
-    function getAllElectionsCount() public view returns (uint electionsCount) {
-        return elections.length;
-    }
-
-    function getElection(uint _index) public view returns (string memory name, uint candidatsCount) {
-        require(_index < elections.length);
-        return (elections[_index].name, elections[_index].candidats.length);
+    function getAllElections() public view returns (Election[] memory allElections) {
+        return elections;
     }
 
     function hasAlreadyVoted(uint _index) public view returns (bool) {
         require(_index < elections.length);
 //        return elections[_index].alreadyVoted[msg.sender];
         return false;
-    }
-
-    function getCandidateForElection(uint _electionIndex, uint _candidateIndex) public view returns (string memory name, uint votes) {
-        require(_electionIndex < elections.length);
-        require(_candidateIndex < elections[_electionIndex].candidats.length);
-        Candidat memory candidat = elections[_electionIndex].candidats[_candidateIndex]; 
-        return (candidat.name, candidat.votes);
     }
 
 }

@@ -9,21 +9,25 @@
 
 </style>
 <script lang="ts">
-import Election from '@/models/Election';
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import { mapActions } from 'vuex';
-import { Action, State } from 'vuex-class';
-@Component
-export default class Admin extends Vue {
+    import Election from '@/models/Election';
+    import {Component, Prop, Vue} from 'vue-property-decorator';
+    import {mapActions} from 'vuex';
+    import {Action, State} from 'vuex-class';
 
-  @State('elections')
-  elections!: Election[];
+    @Component
+    export default class Admin extends Vue {
 
-  @Action('addElection')
-  addElection!: (data: {electionName: string, candidateNames: string[] }) => Promise<Election> | undefined;
+        @State('elections')
+        elections!: Election[];
 
-  async AddElection() {
-    const result = await this.addElection({electionName: "Mon Sondage Front", candidateNames: ["Vue", "Angular", "React.POOP"]});
-  }
-}
+        @Action('addElection')
+        addElection!: (data: { electionName: string, candidateNames: string[] }) => Promise<Election> | undefined;
+
+        async AddElection() {
+            const result = await this.addElection({
+                electionName: "Mon Sondage Front",
+                candidateNames: ["Vue", "Angular", "React.POOP"]
+            });
+        }
+    }
 </script>

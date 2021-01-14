@@ -4,8 +4,9 @@
 <style scoped src="./Elections.css">
 </style>
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-@Component
-export default class Elections extends Vue {
-}
+    import {Component, Prop, Vue} from 'vue-property-decorator';
+
+    @Component
+    export default class Elections extends Vue {
+    }
 </script>
