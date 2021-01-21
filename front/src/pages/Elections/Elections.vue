@@ -1,14 +1,32 @@
 <template>
-    <h1>Elections</h1>
+    <div class='row'>
+        <div class="col-3">
+            <elections-list
+                :selected="selected"
+                :elections="elections"
+                v-on:election-click="(x) => selected = x">
+            </elections-list>   
+        </div>
+    </div>
 </template>
 <style scoped src="./Elections.css">
 </style>
 <script lang="ts">
-    import {Component, Prop, Vue} from 'vue-property-decorator';
+    import {Component, Vue} from 'vue-property-decorator';
+    import Election from '@/models/Election';
+    import ElectionsList from '@/components/ElectionsList';
+    import { State } from 'vuex-class';
 
-    @Component
+    @Component({
+        components: {
+            ElectionsList
+        }
+    })
     export default class Elections extends Vue {
-        @Prop({required: true})
-        test!: number;
+        @State('elections')
+        elections!: Election[];
+
+        selected: Election | null = null;
+
     }
 </script>

@@ -14,8 +14,9 @@
                 ></b-form-input>
             </b-form-group>
             <b-form-group
-                    label="Candidat:"
+                    label="Candidate:"
                     v-for="(c,i) in form.candidates"
+                    v-bind:key="`input_${i}`"
             >
                 <b-form-input
                         v-model="form.candidates[i]"
