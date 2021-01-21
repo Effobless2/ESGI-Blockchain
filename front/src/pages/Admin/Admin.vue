@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Administration</h1>
-        <div class="row">
+        <div class="row mainDiv">
             <div class="col-4">
                 <b-button size="lg" variant="dark" v-on:click="AddElection"><b-icon-plus-circle class="iconPlus"></b-icon-plus-circle> Add Election</b-button>
                 <elections-list :elections="elections" v-on:election-click="setCurrentElection"></elections-list>
