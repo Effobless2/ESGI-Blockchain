@@ -3,7 +3,7 @@
         <b-card-header
                 v-b-toggle.collapse="`election_${election.id}`">
             <div>
-                <h1>{{ election.id }} : {{ election.name }}</h1>
+                <h3>{{ election.name }}</h3>
             </div>
         </b-card-header>
     </b-card>

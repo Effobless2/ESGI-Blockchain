@@ -1,6 +1,4 @@
-h1 {
-    color: green;
-}
+
 .iconPlus {
     margin-right: 10px;
 }
@@ -21,4 +19,5 @@ h1 {
 .btnAdd{
     margin-bottom: 10px;
     margin-top: 10px;
+    background-color: #ad005c;
 }

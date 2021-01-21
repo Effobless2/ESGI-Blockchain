@@ -1,11 +1,10 @@
 <template>
     <div>
-        <h1>Administration</h1>
         <div class="row mainDiv">
             <div class="col-4">
                 <h2>Liste des elections</h2>
                 <div class=contList>
-                    <b-button class="btnAdd" size="lg" variant="dark" v-on:click="AddElection"><b-icon-plus-circle class="iconPlus"></b-icon-plus-circle> Add Election</b-button>
+                    <b-button class="btnAdd" size="lg" v-on:click="AddElection"><b-icon-plus-circle class="iconPlus"></b-icon-plus-circle> Add Election</b-button>
                     <elections-list :elections="elections" v-on:election-click="setCurrentElection"></elections-list>
                 </div>
             </div>
