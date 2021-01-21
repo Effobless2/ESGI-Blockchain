@@ -1,0 +1,15 @@
+.btnAddCandidate {
+    margin-top: 30px;
+    padding: 10px;
+    margin-right: 20px;
+    background-color: #ad005c;
+}
+.btnDeleteCandidate {
+    margin-top: 30px;
+    padding: 10px;
+    background-color: #ad005c;
+}
+.submit {
+    margin-top: 30px;
+    background-color: #ad005c;
+}

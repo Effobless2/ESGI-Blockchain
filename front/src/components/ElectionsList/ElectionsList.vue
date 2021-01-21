@@ -1,9 +1,10 @@
 <template>
     <div class="mainList">
         <election-item v-on:election-click="electionOnClick"
-                v-for="e in elections"
-                v-bind:key="`election_${e.id}`"
-                :election="e">
+                       v-for="e in elections"
+                       v-bind:key="`election_${e.id}`"
+                       :election="e"
+                        :selected="e === selected">
         </election-item>
     </div>
 </template>
@@ -25,6 +26,9 @@
 
         @Prop({required: true})
         elections!: Election[];
+
+        @Prop({required: true})
+        selected!: Election;
 
         electionOnClick(election: Election) {
             this.$emit("election-click", election)

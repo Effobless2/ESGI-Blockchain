@@ -21,3 +21,9 @@
     margin-top: 10px;
     background-color: #ad005c;
 }
+
+.choose {
+    height:58.6vh;
+    font-weight: bolder;
+    color: darkgray;
+}

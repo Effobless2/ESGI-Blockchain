@@ -1,6 +1,7 @@
 <template>
-    <b-card no-body class="mainCard" v-on:click="electionOnClick(election)">
+    <b-card no-body v-on:click="electionOnClick(election)">
         <b-card-header
+                :class="['mainCard', selected ? 'selected':'']"
                 v-b-toggle.collapse="`election_${election.id}`">
             <div>
                 <h3>{{ election.name }}</h3>
@@ -22,6 +23,9 @@
     export default class ElectionItem extends Vue {
         @Prop({required: true})
         election!: Election;
+
+        @Prop({required: true})
+        selected!: Boolean;
 
         electionOnClick(election: Election) {
             this.$emit("election-click", election)

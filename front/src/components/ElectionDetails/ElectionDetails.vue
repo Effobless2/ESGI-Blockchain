@@ -39,12 +39,6 @@ import Candidate from '@/models/Candidate';
         @Prop({required: true})
         election!: Election;
 
-        created(){
-            for(let i = 0; i < this.election.candidates.length; i++) {
-                this.election.candidates[i].votes = i;
-            }
-        }
-
         get totalVotes(): number {
             let res = 0;
             this.election.candidates.map(x => {
