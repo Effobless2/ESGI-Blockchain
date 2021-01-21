@@ -1,15 +1,14 @@
 <template>
-    <div>
-        <h1>Les Elections</h1>
-        <election-item 
-            v-for="e in elections"
-            v-bind:key="`election_${e.id}`"
-            :election="e">
+    <div class="mainList">
+        <election-item v-on:election-click="electionOnClick"
+                v-for="e in elections"
+                v-bind:key="`election_${e.id}`"
+                :election="e">
         </election-item>
     </div>
 </template>
 
-<style scoped src="./ElectionsList.css"> </style>
+<style scoped src="./ElectionsList.css"></style>
 
 <script lang="ts">
 
@@ -26,6 +25,10 @@
 
         @Prop({required: true})
         elections!: Election[];
+
+        electionOnClick(election: Election) {
+            this.$emit("election-click", election)
+        }
     }
 
 </script>

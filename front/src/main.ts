@@ -1,4 +1,4 @@
-import BootstrapVue, { NavbarPlugin } from 'bootstrap-vue';
+import {BootstrapVue, BootstrapVueIcons, NavbarPlugin} from 'bootstrap-vue';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import Vue from 'vue';
@@ -11,6 +11,7 @@ Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(NavbarPlugin);
 Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
 new Vue({
     render: h => h(App),
     router: router,

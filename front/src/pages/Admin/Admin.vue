@@ -1,9 +1,16 @@
 <template>
     <div>
         <h1>Administration</h1>
-        <button v-on:click="AddElection">AddElection</button>
-        <p>{{ elections }}</p>
-        <elections-list :elections="elections">  </elections-list>
+        <div class="row">
+            <div class="col-4">
+                <b-button size="lg" variant="dark" v-on:click="AddElection"><b-icon-plus-circle class="iconPlus"></b-icon-plus-circle> Add Election</b-button>
+                <elections-list :elections="elections" v-on:election-click="setCurrentElection"></elections-list>
+            </div>
+            <div class="col-8">
+                <h2>Details</h2>
+                <election-details :election="currentElection" v-if="currentElection != null"></election-details>
+            </div>
+        </div>
     </div>
 </template>
 <style scoped src="./Admin.css">
@@ -15,13 +22,17 @@
     import {mapActions} from 'vuex';
     import {Action, State} from 'vuex-class';
     import ElectionsList from "@/components/ElectionsList/ElectionsList.vue";
+    import ElectionDetails from "@/components/ElectionDetails/ElectionDetails.vue";
+
     @Component({
-        components: {ElectionsList}
+        components: {ElectionDetails, ElectionsList}
     })
     export default class Admin extends Vue {
 
         @State('elections')
         elections!: Election[];
+
+        currentElection: Election | null = null;
 
         @Action('addElection')
         addElection!: (data: { electionName: string, candidateNames: string[] }) => Promise<Election> | undefined;
@@ -31,6 +42,10 @@
                 electionName: "Mon Sondage Front",
                 candidateNames: ["Vue", "Angular", "React.POOP"]
             });
+        }
+
+        setCurrentElection(election: Election) {
+            this.currentElection = election;
         }
     }
 </script>
