@@ -5,5 +5,20 @@ h1 {
     margin-right: 10px;
 }
 .mainDiv {
-    padding: 50px;
+    padding: 40px;
+}
+
+.mainList{
+    margin: 0;
+}
+
+.contList{
+    border: 1px solid #e3e3e3;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+.btnAdd{
+    margin-bottom: 10px;
+    margin-top: 10px;
 }

@@ -3,8 +3,11 @@
         <h1>Administration</h1>
         <div class="row mainDiv">
             <div class="col-4">
-                <b-button size="lg" variant="dark" v-on:click="AddElection"><b-icon-plus-circle class="iconPlus"></b-icon-plus-circle> Add Election</b-button>
-                <elections-list :elections="elections" v-on:election-click="setCurrentElection"></elections-list>
+                <h2>Liste des elections</h2>
+                <div class=contList>
+                    <b-button class="btnAdd" size="lg" variant="dark" v-on:click="AddElection"><b-icon-plus-circle class="iconPlus"></b-icon-plus-circle> Add Election</b-button>
+                    <elections-list :elections="elections" v-on:election-click="setCurrentElection"></elections-list>
+                </div>
             </div>
             <div class="col-8">
                 <h2>Details</h2>
