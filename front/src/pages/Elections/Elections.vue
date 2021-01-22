@@ -12,12 +12,12 @@
         </div>
         <div class="col-8">
             <h2>Details</h2>
-            <b-card class="choose" v-if="selected === null">
-                    <b-card-text>
-                            <h1><b>Choose an election</b></h1>
-                    </b-card-text>
+            <b-card class="choose">
+                <b-card-text class="defaultTitle" v-if="selected === null">
+                    <h1><b>Choose an election</b></h1>
+                </b-card-text>
+                <vote-form v-else :election="selected"></vote-form>
             </b-card>
-            <vote-form v-else :election="selected"></vote-form>
         </div>
     </div>
 </template>

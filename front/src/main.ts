@@ -1,12 +1,12 @@
-import {BootstrapVue, BootstrapVueIcons, NavbarPlugin} from 'bootstrap-vue';
+import { BootstrapVue, BootstrapVueIcons, NavbarPlugin } from 'bootstrap-vue';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import Vue from 'vue';
+import VueDraggable from 'vue-draggable';
 import VueRouter from 'vue-router';
 import App from './App.vue';
 import router from './routes';
 import store from './store';
-import VueDraggable from 'vue-draggable'
 
 Vue.config.productionTip = false;
 Vue.use(VueRouter);

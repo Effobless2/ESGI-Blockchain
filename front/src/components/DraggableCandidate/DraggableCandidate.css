@@ -1,0 +1,20 @@
+h4 {
+    color:#343a40;
+    margin: 0;
+}
+
+.card-header:hover, .selected {
+    cursor: pointer;
+    border: solid #ad005c;
+}
+
+.card-header:hover > div > h3, .selected > div > h3 {
+    color: white;
+}
+
+.draggableHead {
+    margin: 15px;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
