@@ -17,13 +17,9 @@
                 <election-details :election="currentElection" v-if="currentElection != null"></election-details>
 
                 <b-card v-else class="choose">
-                    <b-card-body>
-                        <b-card-text>
-                            <div>
-                                <h1><b>Choose an election</b></h1>
-                            </div>
-                        </b-card-text>
-                    </b-card-body>
+                    <b-card-text>
+                        <h1><b>Choose an election</b></h1>
+                    </b-card-text>
                 </b-card>
 
             </div>

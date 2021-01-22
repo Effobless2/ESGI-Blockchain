@@ -1,3 +1,21 @@
-h1 {
-    color: red;
+
+
+.mainDiv {
+    padding: 40px;
+    height: 95vh;
+    overflow: auto;
+}
+
+.contList{
+    border: 1px solid #e3e3e3;
+    border-radius: 3px;
+    padding: 5px;
+    overflow-y: scroll;
+    height:64%;
+}
+
+.choose {
+    font-weight: bolder;
+    color: darkgray;
+    height:64%;
 }

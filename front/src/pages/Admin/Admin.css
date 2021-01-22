@@ -4,16 +4,16 @@
 }
 .mainDiv {
     padding: 40px;
-}
-
-.mainList{
-    margin: 0;
+    height: 95vh;
+    overflow: auto;
 }
 
 .contList{
     border: 1px solid #e3e3e3;
     border-radius: 3px;
     padding: 5px;
+    overflow-y: scroll;
+    height:64%;
 }
 
 .btnAdd{
@@ -23,7 +23,7 @@
 }
 
 .choose {
-    height:58.6vh;
     font-weight: bolder;
     color: darkgray;
+    height:64%;
 }
