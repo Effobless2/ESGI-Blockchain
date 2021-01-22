@@ -12,19 +12,19 @@
         </div>
         <div class="col-8">
             <h2>Details</h2>
-
+            <vote-form></vote-form>
             <b-card class="choose">
                     <b-card-text>
                             <h1><b>Choose an election</b></h1>
                     </b-card-text>
             </b-card>
-
         </div>
     </div>
 </template>
 <style scoped src="./Elections.css">
 </style>
 <script lang="ts">
+    import VoteForm from "@/components/VoteForm";
     import {Component, Vue} from 'vue-property-decorator';
     import Election from '@/models/Election';
     import ElectionsList from '@/components/ElectionsList';
@@ -32,7 +32,8 @@
 
     @Component({
         components: {
-            ElectionsList
+            ElectionsList,
+            VoteForm
         }
     })
     export default class Elections extends Vue {
