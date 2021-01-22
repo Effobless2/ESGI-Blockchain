@@ -6,16 +6,18 @@
                 class="row candidateRow"
                 v-for="(candidate, i) in election.candidates"
                 v-bind:key="`election_${election.id}_candidate_${i}`">
-                
                 <p class="col-2 candidateName">{{ candidate.name }}</p> 
                 <div class="col-8">
                     <b-progress
                         :max="totalVotes"
                         animated>
                         <b-progress-bar
-                            :variant="bestCandidate === candidate ? 'success' : 'default'"
+                            animated
+                            :class="bestCandidate === candidate ? 'success' : 'default'"
                             :value="candidate.votes">
-                            <span>{{ (candidate.votes / totalVotes * 100).toFixed(2)}} %</span>
+                            <span v-if="(candidate.votes / totalVotes * 100).toFixed(2) > 8">
+                                {{ (candidate.votes / totalVotes * 100).toFixed(2)}} %
+                            </span>
                         </b-progress-bar>
                     </b-progress>
                 </div>
@@ -30,7 +32,7 @@
 
 <script lang="ts">
 
-    import {Component, Prop, Vue} from 'vue-property-decorator';
+    import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
     import Election from "@/models/Election";
 import Candidate from '@/models/Candidate';
 
@@ -38,6 +40,14 @@ import Candidate from '@/models/Candidate';
     export default class ElectionDetails extends Vue {
         @Prop({required: true})
         election!: Election;
+
+
+        @Watch('election')
+        setElection(newValue: Election) {
+            for(let i = 0; i < newValue.candidates.length; i++) {
+                newValue.candidates[i].votes = i;
+            }
+        }
 
         get totalVotes(): number {
             let res = 0;

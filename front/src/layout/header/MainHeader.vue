@@ -1,14 +1,15 @@
 <template>
     <b-navbar toggleable="lg" type="dark" variant="dark" fixed="top">
-        <b-navbar-brand to="/">
-            Admin
-        </b-navbar-brand>
-
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
-                <b-nav-item to="/elections">
+                <b-nav-item to="/" :class="[isCurrent('') ? 'current' : '']">
+                    Admin
+                </b-nav-item>
+            </b-navbar-nav>
+            <b-navbar-nav>
+                <b-nav-item to="/elections"  :class="[isCurrent('elections') ? 'current' : '']">
                     Elections
                 </b-nav-item>
             </b-navbar-nav>
@@ -23,6 +24,9 @@
 
     @Component({})
     class Header extends Vue {
+        isCurrent(uri: string): boolean {
+            return this.$route.name == uri;
+        }
 
     }
 

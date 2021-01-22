@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>{{ election.name }}</h1>
-        <div class="row">
+        <div class="row mainRow">
             <div class="col-2 nbDivs">
                 <h1 v-for="(_, index) in candidates" v-bind:key="`nb_${index}`"> {{ index + 1 }}</h1>
             </div>
@@ -25,6 +25,7 @@
                 </vue-draggable-group>
             </div>
         </div>
+        <b-button class="btnSumit" size="lg" block>Submit</b-button>
     </div>
 </template>
 

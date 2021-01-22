@@ -10,15 +10,15 @@
     border: 1px solid #e3e3e3;
     border-radius: 3px;
     padding: 5px;
-    overflow-y: scroll;
-    height:75%;
-    max-height: 90vh;
+    overflow-y: auto;
+    height:100%;
+    max-height: 85vh;
 }
 
 .choose {
-    overflow-y: scroll;
-    height:75%;
-    max-height: 90vh;
+    overflow-y: auto;
+    height:100%;
+    max-height: 85vh;
 }
 
 .defaultTitle {

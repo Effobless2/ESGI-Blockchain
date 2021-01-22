@@ -12,8 +12,9 @@
     border: 1px solid #e3e3e3;
     border-radius: 3px;
     padding: 5px;
-    overflow-y: scroll;
-    height:64%;
+    overflow-y: auto;
+    height:100%;
+    max-height: 85vh;
 }
 
 .btnAdd{
@@ -24,6 +25,14 @@
 
 .choose {
     font-weight: bolder;
+    overflow-y: auto;
     color: darkgray;
-    height:64%;
+    height:100%;
+    max-height: 85vh;
+}
+
+.details {
+    overflow-y: auto;
+    height:100%;
+    max-height: 85vh;
 }

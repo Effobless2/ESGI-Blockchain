@@ -3,3 +3,21 @@
     flex-direction: column;
     justify-content: space-around;
 }
+
+.btnSumit{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    background-color: #ad005c;
+}
+
+.mainRow {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    overflow-y: auto;
+    height:100%;
+    max-height: 60vh;
+}
+
+.drag-item:active {
+    border: none;
+}

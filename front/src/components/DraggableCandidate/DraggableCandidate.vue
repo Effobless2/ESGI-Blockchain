@@ -1,5 +1,5 @@
 <template>
-    <b-card no-body>
+    <b-card no-body class="draggableCard">
         <b-card-header>
             <div class="row draggableHead">
                 <b-icon-view-list scale=2.5></b-icon-view-list>

@@ -2,7 +2,6 @@
     <div>
         <div class="row mainDiv">
             <div class="col-4">
-                <h2>Liste des elections</h2>
                 <div class=contList>
                     <b-button block class="btnAdd" size="lg" v-on:click="modalShow = true">
                         <b-icon-plus-circle class="iconPlus"></b-icon-plus-circle>
@@ -13,8 +12,7 @@
                 </div>
             </div>
             <div class="col-8">
-                <h2>Details</h2>
-                <election-details :election="currentElection" v-if="currentElection != null"></election-details>
+                <election-details :election="currentElection" v-if="currentElection != null" class="details"></election-details>
 
                 <b-card v-else class="choose">
                     <b-card-text>

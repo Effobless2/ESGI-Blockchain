@@ -1,10 +1,15 @@
-h1 {
-    color: blueviolet;
-}
 .candidateRow {
     align-items: baseline;
 }
 
 .candidateRow > .candidateName {
     justify-content: end;
+}
+
+.success {
+    background: #ad005c;
+}
+
+.default {
+    background: #ff78b0;
 }

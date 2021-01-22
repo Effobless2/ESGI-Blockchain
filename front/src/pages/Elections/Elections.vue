@@ -1,7 +1,6 @@
 <template>
     <div class='row mainDiv'>
         <div class="col-4">
-            <h2>Liste des elections</h2>
             <div class="contList">
                 <elections-list
                     :selected="selected"
@@ -11,7 +10,6 @@
             </div> 
         </div>
         <div class="col-8">
-            <h2>Details</h2>
             <b-card class="choose">
                 <b-card-text class="defaultTitle" v-if="selected === null">
                     <h1><b>Choose an election</b></h1>
