@@ -43,6 +43,9 @@ export default new Vuex.Store<State>({
                     context.commit('addElection', election);
                     return election;
                 });
+        },
+        vote(context: { commit: any, state: State }, data: { id: number, votes: number[] }): Promise<boolean> {
+            return context.state.service!.vote(data.id, data.votes);
         }
     }
 });

@@ -1,7 +1,7 @@
 import SmartElectionContract from '@/abi';
 import Election from '@/models/Election';
 import Web3 from 'web3';
-import { Contract } from 'web3-eth-contract';
+import {Contract} from 'web3-eth-contract';
 
 export default class SmartElectionService {
     smartContract: Contract;
@@ -38,13 +38,19 @@ export default class SmartElectionService {
             id: electionId,
             name: electionName,
             candidates: candidateNames.map((x: string, index: number) => {
-                return {
-                    id: index,
-                    name: x,
-                    votes: 0
+                    return {
+                        id: index,
+                        name: x,
+                        votes: 0
+                    }
                 }
-            }
-        )};
+            )
+        };
         return result;
+    }
+
+    async vote(id: number, votes: number[]): Promise<boolean> {
+        const transaction = await this.smartContract.methods.vote(id, votes[0]).send({from: this.web3.eth.defaultAccount});
+        return false;
     }
 }

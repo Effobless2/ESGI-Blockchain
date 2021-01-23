@@ -21,3 +21,13 @@
 .drag-item:active {
     border: none;
 }
+
+.btn-primary {
+    background-color: #ad005c;
+    border-color: #ad005c;
+}
+
+.submit {
+    margin-top: 30px;
+    background-color: #ad005c;
+}
