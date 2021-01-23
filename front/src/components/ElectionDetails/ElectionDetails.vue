@@ -1,53 +1,45 @@
 <template>
     <b-card :title="election.name" class="electionCard">
         <b-card-body>
-      <b-card-text>
-            <div 
-                class="row candidateRow"
-                v-for="(candidate, i) in election.candidates"
-                v-bind:key="`election_${election.id}_candidate_${i}`">
-                <p class="col-2 candidateName">{{ candidate.name }}</p> 
-                <div class="col-8">
-                    <b-progress
-                        :max="totalVotes"
-                        animated>
-                        <b-progress-bar
-                            animated
-                            :class="bestCandidate === candidate ? 'success' : 'default'"
-                            :value="candidate.votes">
+            <b-card-text>
+                <div
+                        class="row candidateRow"
+                        v-for="(candidate, i) in election.candidates"
+                        v-bind:key="`election_${election.id}_candidate_${i}`">
+                    <p class="col-2 candidateName">{{ candidate.name }}</p>
+                    <div class="col-8">
+                        <b-progress
+                                :max="totalVotes"
+                                animated>
+                            <b-progress-bar
+                                    animated
+                                    :class="bestCandidate === candidate ? 'success' : 'default'"
+                                    :value="candidate.votes">
                             <span v-if="(candidate.votes / totalVotes * 100).toFixed(2) > 8">
                                 {{ (candidate.votes / totalVotes * 100).toFixed(2)}} %
                             </span>
-                        </b-progress-bar>
-                    </b-progress>
+                            </b-progress-bar>
+                        </b-progress>
+                    </div>
+                    <p class="col-2">{{ candidate.votes }} Votes</p>
                 </div>
-                <p class="col-2">{{ candidate.votes }} Votes</p>
-            </div>
-      </b-card-text>
-    </b-card-body>
+            </b-card-text>
+        </b-card-body>
     </b-card>
 </template>
 
-<style scoped src="./ElectionDetails.css"> </style>
+<style scoped src="./ElectionDetails.css"></style>
 
 <script lang="ts">
 
-    import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
+    import {Component, Prop, Vue} from 'vue-property-decorator';
     import Election from "@/models/Election";
-import Candidate from '@/models/Candidate';
+    import Candidate from '@/models/Candidate';
 
     @Component
     export default class ElectionDetails extends Vue {
         @Prop({required: true})
         election!: Election;
-
-
-        @Watch('election')
-        setElection(newValue: Election) {
-            for(let i = 0; i < newValue.candidates.length; i++) {
-                newValue.candidates[i].votes = i;
-            }
-        }
 
         get totalVotes(): number {
             let res = 0;
