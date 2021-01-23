@@ -37,8 +37,8 @@ export default new Vuex.Store<State>({
             service.getAllElections()
                 .then((elections: Election[]) => context.commit('setElections', elections));
         },
-        addElection(context: { commit: any, state: State }, data: { electionName: string, candidateNames: string[] }): Promise<Election> | undefined {
-            return context.state.service?.addElection(data.electionName, data.candidateNames)
+        addElection(context: { commit: any, state: State }, data: { electionName: string, candidateNames: string[], votesNumber: number }): Promise<Election> | undefined {
+            return context.state.service?.addElection(data.electionName, data.candidateNames, data.votesNumber)
                 .then((election: Election) => {
                     context.commit('addElection', election);
                     return election;

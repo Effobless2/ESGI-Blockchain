@@ -1,18 +1,34 @@
 <template>
     <div>
         <b-form>
-            <b-form-group
-                    id="input-group-1"
-                    label="Election Name:"
-            >
-                <b-form-input
-                        id="input-1"
-                        v-model="form.name"
-                        type="text"
-                        placeholder="Enter name"
-                        required
-                ></b-form-input>
-            </b-form-group>
+            <div class="row">
+                <b-form-group
+                        id="input-group-1"
+                        label="Election Name:"
+                        class="col-8"
+                >
+                    <b-form-input
+                            id="input-1"
+                            v-model="form.name"
+                            type="text"
+                            placeholder="Enter name"
+                            required
+                    ></b-form-input>
+                </b-form-group>
+                <b-form-group
+                        id="input-group-2"
+                        label="Number of votes available:"
+                        class="col-4"
+                >
+                    <b-form-input
+                            id="input-2"
+                            v-model="form.votesNumber"
+                            type="number"
+                            placeholder="Enter name"
+                            required
+                    ></b-form-input>
+                </b-form-group>
+            </div>
             <b-form-group
                     label="Candidate:"
                     v-for="(c,i) in form.candidates"
@@ -54,22 +70,25 @@
     interface formData {
         name: string;
         candidates: string[];
+        votesNumber: number;
     }
 
     @Component
     export default class ElectionForm extends Vue {
         form: formData = {
             name: "",
-            candidates: ["", ""]
+            candidates: ["", ""],
+            votesNumber: 0
         };
 
         @Action('addElection')
-        addElection!: (data: { electionName: string, candidateNames: string[] }) => Promise<Election> | undefined;
+        addElection!: (data: { electionName: string, candidateNames: string[], votesNumber: number }) => Promise<Election> | undefined;
 
         async AddElection() {
             const result = await this.addElection({
                 electionName: this.form.name,
-                candidateNames: this.form.candidates
+                candidateNames: this.form.candidates,
+                votesNumber: this.form.votesNumber
             });
             this.$emit("election-created", result)
         }

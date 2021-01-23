@@ -7,7 +7,7 @@
                         <b-icon-plus-circle class="iconPlus"></b-icon-plus-circle>
                         Add Election
                     </b-button>
-                    <elections-list :elections="elections" v-on:election-click="setCurrentElection"
+                    <elections-list :elections="elections.filter(x => x.isCreator)" v-on:election-click="setCurrentElection"
                                     :selected="currentElection"></elections-list>
                 </div>
             </div>
