@@ -2,17 +2,24 @@ pragma experimental ABIEncoderV2;
 
 contract SmartElection {
 
-    struct Candidat {
+    struct Candidate {
         string name;
+        address candidateAddress;
         uint votes;
     }
 
     struct Election {
         string name;
-        Candidat[] candidats;
+        Candidate[] candidates;
         address[] alreadyVoted;
         address payable creator;
         uint maxVotes;
+        bool isOpen;
+    }
+
+    struct newCandidate {
+        string name;
+        address candidateAddress;
     }
 
     Election[] elections;
@@ -29,23 +36,41 @@ contract SmartElection {
     event Voted(uint electionId, address voter);
 
     function receive() external payable {}
+    function fallback() external payable {}
     
-    function addElection(string memory electionName, string[] memory candidates, uint maxVotes) public payable returns (uint electionId) {
+    function addElectionFill(string memory electionName, newCandidate[] memory candidates, uint maxVotes) public payable returns (uint electionId) {
         uint election_id = elections.length++;
         elections[election_id].name = electionName;
         elections[election_id].maxVotes = maxVotes;
         elections[election_id].creator = msg.sender;
+        elections[election_id].isOpen = candidates.length == 0;
         for(uint i = 0; i < candidates.length; i++){
-            addCandidatToElection(election_id, candidates[i]);
+            addCandidatToElection(election_id, candidates[i].name, candidates[i].candidateAddress);
         }
         emit ElectionAdded(election_id, electionName);
         return election_id;
     }
 
-    function addCandidatToElection(uint electionIndex, string memory candidateName) private returns (bool success) {
+    function addOpenElection(string memory electionName, uint maxVotes)  public payable returns (uint electionId){
+        newCandidate[] memory list;
+        return addElectionFill(electionName, list, maxVotes);
+    }
+
+    function addCandidatToElection(uint electionIndex, string memory candidateName) public returns (bool success) {
+        return addCandidatToElection(electionIndex, candidateName, msg.sender);
+    }
+
+    function addCandidatToElection(uint electionIndex, string memory candidateName, address candidateAddress) private returns (bool success) {
         require(electionIndex <= elections.length);
-        elections[electionIndex].candidats.push(Candidat(candidateName, 0));
-        emit CandidateAdded(electionIndex, elections[electionIndex].candidats.length - 1, candidateName);
+        bool alreadyApplies = false;
+        for(uint i = 0; i < elections[electionIndex].candidates.length; i++) {
+            if (elections[electionIndex].candidates[i].candidateAddress == msg.sender) {
+                alreadyApplies = true;
+            }
+        }
+        require(!alreadyApplies);
+        elections[electionIndex].candidates.push(Candidate(candidateName, candidateAddress, 0));
+        emit CandidateAdded(electionIndex, elections[electionIndex].candidates.length - 1, candidateName);
         return true;
     }
 
@@ -53,18 +78,19 @@ contract SmartElection {
         require(elections.length > electionIndex);
         require(elections[electionIndex].creator != msg.sender);
         require(elections[electionIndex].maxVotes > elections[electionIndex].alreadyVoted.length);
-        require(elections[electionIndex].candidats.length == votes.length);
+        require(elections[electionIndex].candidates.length == votes.length);
         require(elections[electionIndex].creator.balance > voteFee);
         require(!hasAlreadyVoted(electionIndex));
 
         
         uint factor = votes.length;
         for (uint i = 0; i < votes.length; i++) {
-            require(votes[i] < elections[electionIndex].candidats.length);
-            elections[electionIndex].candidats[votes[i]].votes += factor;
+            require(votes[i] < elections[electionIndex].candidates.length);
+            elections[electionIndex].candidates[votes[i]].votes += factor;
             factor--;
         }
 
+        elections[electionIndex].alreadyVoted.push(msg.sender);
         address payable creator = elections[electionIndex].creator;
 
         bool succeed = creator.send(voteFee);
@@ -87,6 +113,12 @@ contract SmartElection {
             }
         }
         return false;
+    }
+
+    function lockElection(uint electionId) public payable returns (bool success) {
+        require(electionId < elections.length);
+        require(elections[electionId].creator == msg.sender);
+        elections[electionId].isOpen = false;
     }
 
 }

@@ -6,5 +6,7 @@ export default interface Election {
     candidates: Candidate[];
     maxVotes: number;
     isCreator: boolean;
-    canBeVoted: boolean;
+    isOpenToVote: boolean;
+    resultsAvailable: boolean;
+    canApply: boolean;
 }

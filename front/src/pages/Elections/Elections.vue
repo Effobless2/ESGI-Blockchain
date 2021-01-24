@@ -4,7 +4,7 @@
             <div class="contList">
                 <elections-list
                     :selected="selected"
-                    :elections="elections.filter(x => x.canBeVoted)"
+                    :elections="elections.filter(x => x.isOpenToVote)"
                     v-on:election-click="(x) => selected = x">
                 </elections-list>
             </div> 

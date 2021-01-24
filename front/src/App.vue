@@ -3,6 +3,7 @@
         <main-header></main-header>
         <router-view></router-view>
         <vue-metamask :userMessage="msg" @onComplete="onComplete"></vue-metamask>
+        <vue-snotify></vue-snotify>
     </div>
 </template>
 

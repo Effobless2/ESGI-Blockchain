@@ -13,3 +13,14 @@
     margin-top: 30px;
     background-color: #ad005c;
 }
+
+.candidateList > div {
+    width: 40%;
+    margin: 5px;
+}
+
+.candidateList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly; 
+}

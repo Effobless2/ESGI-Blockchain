@@ -4,13 +4,18 @@
 
         <b-collapse id="nav-collapse" is-nav>
             <b-navbar-nav>
+                <b-nav-item to="/dashboard" :class="[isCurrent('') ? 'current' : '']">
+                    Dashboard
+                </b-nav-item>
+            </b-navbar-nav>
+            <b-navbar-nav>
                 <b-nav-item to="/" :class="[isCurrent('') ? 'current' : '']">
-                    Admin
+                    Manage Elections
                 </b-nav-item>
             </b-navbar-nav>
             <b-navbar-nav>
                 <b-nav-item to="/elections"  :class="[isCurrent('elections') ? 'current' : '']">
-                    Elections
+                    Vote for an Election
                 </b-nav-item>
             </b-navbar-nav>
         </b-collapse>

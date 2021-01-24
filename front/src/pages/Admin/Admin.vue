@@ -32,9 +32,8 @@
 </style>
 <script lang="ts">
     import Election from '@/models/Election';
-    import {Component, Prop, Vue} from 'vue-property-decorator';
-    import {mapActions} from 'vuex';
-    import {Action, State} from 'vuex-class';
+    import { Component, Vue } from 'vue-property-decorator';
+    import { State } from 'vuex-class';
     import ElectionsList from "@/components/ElectionsList/ElectionsList.vue";
     import ElectionDetails from "@/components/ElectionDetails/ElectionDetails.vue";
     import ElectionForm from "@/components/ElectionForm/ElectionForm.vue";
