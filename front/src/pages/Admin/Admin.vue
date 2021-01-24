@@ -1,8 +1,30 @@
 <template>
     <div>
-        <h1>Administration</h1>
-        <button v-on:click="AddElection">AddElection</button>
-        <p>{{ elections }}</p>
+        <div class="row mainDiv">
+            <div class="col-4">
+                <div class=contList>
+                    <b-button block class="btnAdd" size="lg" v-on:click="modalShow = true">
+                        <b-icon-plus-circle class="iconPlus"></b-icon-plus-circle>
+                        Add Election
+                    </b-button>
+                    <elections-list :elections="elections.filter(x => x.isCreator)" v-on:election-click="setCurrentElection"
+                                    :selected="currentElection"></elections-list>
+                </div>
+            </div>
+            <div class="col-8">
+                <election-details :election="currentElection" v-if="currentElection != null" class="details"></election-details>
+
+                <b-card v-else class="choose">
+                    <b-card-text>
+                        <h1><b>Choose an election</b></h1>
+                    </b-card-text>
+                </b-card>
+
+            </div>
+        </div>
+        <b-modal hide-footer id="modal-xl" size="xl" title="Add Election" v-model="modalShow">
+            <election-form v-on:election-created="electionCreated"></election-form>
+        </b-modal>
     </div>
 </template>
 <style scoped src="./Admin.css">
@@ -10,24 +32,30 @@
 </style>
 <script lang="ts">
     import Election from '@/models/Election';
-    import {Component, Prop, Vue} from 'vue-property-decorator';
-    import {mapActions} from 'vuex';
-    import {Action, State} from 'vuex-class';
+    import { Component, Vue } from 'vue-property-decorator';
+    import { State } from 'vuex-class';
+    import ElectionsList from "@/components/ElectionsList/ElectionsList.vue";
+    import ElectionDetails from "@/components/ElectionDetails/ElectionDetails.vue";
+    import ElectionForm from "@/components/ElectionForm/ElectionForm.vue";
 
-    @Component
+    @Component({
+        components: {ElectionForm, ElectionDetails, ElectionsList}
+    })
     export default class Admin extends Vue {
 
         @State('elections')
         elections!: Election[];
 
-        @Action('addElection')
-        addElection!: (data: { electionName: string, candidateNames: string[] }) => Promise<Election> | undefined;
+        currentElection: Election | null = null;
+        modalShow: Boolean = false;
 
-        async AddElection() {
-            const result = await this.addElection({
-                electionName: "Mon Sondage Front",
-                candidateNames: ["Vue", "Angular", "React.POOP"]
-            });
+        setCurrentElection(election: Election) {
+            this.currentElection = election;
+        }
+
+        electionCreated(election: Election) {
+            this.modalShow = false;
+            this.currentElection = election;
         }
     }
 </script>

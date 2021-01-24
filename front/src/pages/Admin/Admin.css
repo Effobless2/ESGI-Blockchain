@@ -1,3 +1,38 @@
-h1 {
-    color: green;
+
+.iconPlus {
+    margin-right: 10px;
+}
+.mainDiv {
+    padding: 40px;
+    height: 95vh;
+    overflow: auto;
+}
+
+.contList{
+    border: 1px solid #e3e3e3;
+    border-radius: 3px;
+    padding: 5px;
+    overflow-y: auto;
+    height:100%;
+    max-height: 85vh;
+}
+
+.btnAdd{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    background-color: #ad005c;
+}
+
+.choose {
+    font-weight: bolder;
+    overflow-y: auto;
+    color: darkgray;
+    height:100%;
+    max-height: 85vh;
+}
+
+.details {
+    overflow-y: auto;
+    height:100%;
+    max-height: 85vh;
 }

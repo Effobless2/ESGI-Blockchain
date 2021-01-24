@@ -1,0 +1,25 @@
+.candidateRow {
+    align-items: baseline;
+}
+
+.candidateRow > .candidateName {
+    justify-content: end;
+}
+
+.success {
+    background: #ad005c;
+}
+
+.default {
+    background: #ff78b0;
+}
+
+.switch {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.smartBtn {
+    margin-top: 30px;
+    background-color: #ad005c;
+}

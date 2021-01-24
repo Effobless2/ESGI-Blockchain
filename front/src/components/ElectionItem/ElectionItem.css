@@ -1,0 +1,12 @@
+h3 {
+    color:#343a40
+}
+
+.card-header:hover, .selected {
+    cursor: pointer;
+    background-color: #ad005c;
+}
+
+.card-header:hover > div > h3, .selected > div > h3 {
+    color: white;
+}
