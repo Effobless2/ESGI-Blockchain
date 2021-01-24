@@ -41,7 +41,7 @@
             v-model="showModal"
             hide-footer
             hide-header>
-            <b-modal-text>
+            <div>
                 <div class="row">
                     <b-form-group
                         id="input-group-1"
@@ -57,7 +57,7 @@
                     </b-form-group>
                 </div>
                 <b-button block class="smartBtn" v-on:click="apply" :disabled="name === ''">Apply !</b-button>
-            </b-modal-text>
+            </div>
         </b-modal>
     </b-card>
 </template>
@@ -139,7 +139,7 @@
         }
 
         get canApply(): boolean {
-            return this.election.isOpenForApplication;
+            return this.election.isOpenForApplication && this.election.isOpenForApplication;
         }
 
         async openToVote() {

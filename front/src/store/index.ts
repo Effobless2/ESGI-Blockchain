@@ -34,7 +34,7 @@ export default new Vuex.Store<State>({
             const election = state.elections.find(x => x.id === data.electionId);
             if (election) {
                 election.candidates.push(data.candidate);
-                election.canApply = !data.isCurrentUser;
+                election.isOpenForApplication = !data.isCurrentUser;
             }
         },
         addVotes(state: State, data: {id: number, votes: number[]}) {
@@ -87,7 +87,7 @@ export default new Vuex.Store<State>({
         apply(context: { commit: any, state: State }, data: { id: number, name: string }): Promise<boolean> {
             return context.state.service!.apply(data.id, data.name)
                 .then((result: {candidate: Candidate, isCurrentUser: boolean}) => {
-                    context.commit('addCandidate', {electionId: data.id, candidate: result, isCurrentUser: result.isCurrentUser});
+                    context.commit('addCandidate', {electionId: data.id, candidate: result.candidate, isCurrentUser: result.isCurrentUser});
                     return true;
                 });
         }

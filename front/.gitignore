@@ -2,6 +2,8 @@
 node_modules
 /dist
 
+src/abi/index.json
+
 
 # local env files
 .env.local

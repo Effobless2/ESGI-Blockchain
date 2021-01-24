@@ -64,10 +64,10 @@
                 </div>
             </div>
             <div class="btnCandidate" v-if="!form.openToApplication">
-                <b-button class="btnAddCandidate" size="lg" v-on:click="form.candidates.push('')">
+                <b-button class="btnAddCandidate" size="lg" v-on:click="form.candidates.push({name: '', candidateAddress: ''})">
                     <b-icon-person-plus class="iconPlus"></b-icon-person-plus>
                 </b-button>
-                <b-button class="btnDeleteCandidate" size="lg" v-on:click="form.candidates.pop('')"
+                <b-button class="btnDeleteCandidate" size="lg" v-on:click="form.candidates.pop()"
                           v-if="form.candidates.length > 2">
                     <b-icon-person-dash class="iconMinus"></b-icon-person-dash>
                 </b-button>
@@ -118,7 +118,7 @@
                 });
                 if (result !== undefined) {
                     this.$emit("election-created", result);
-                    (this as any).$snotify.success(`The election '${result.name}' has been created successfully`, "New Election !")
+                    (this as any).$snotify.success(`The election '${result.name}' has been created successfully`, "New Election !");
                 }
                 else {
                     
