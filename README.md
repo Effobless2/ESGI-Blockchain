@@ -5,7 +5,7 @@
 - truffle.js
 
 ## Lancer la blockchain avec truffle
-- `truffle migrate -f 2 && cat ./build/contracts/SmartElection.json > ../front/src/abi/index.json`
+- `truffle migrate -f 2 --network development  && cat ./build/contracts/SmartElection.json > ../front/src/abi/index.json`
 - le fichier `front/src/abi/index.json` est nécessaire pour se connecter au smart contract.
 
 ## Lancer le serveur front de développement

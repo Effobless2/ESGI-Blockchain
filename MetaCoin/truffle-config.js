@@ -11,7 +11,7 @@ module.exports = {
     },
     kovan: {
       provider: function() {
-        return new HDWalletProvider(mnemonic, "https://kovan.infura.io/v3/<API-KEY>");
+        return new HDWalletProvider(mnemonic, "https://kovan.infura.io/v3/2284480ba5f44a5bb5eda06174093b55");
       },
       network_id: 42
     },
