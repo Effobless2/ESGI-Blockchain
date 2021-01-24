@@ -25,7 +25,7 @@
                 </vue-draggable-group>
             </div>
         </div>
-        <b-button class="btnSumit" size="lg" block v-on:click="showModal = true">Submit</b-button>
+        <b-button class="btnSumit" size="lg" block v-on:click="showModal = true" :disabled="election.can">Submit</b-button>
         <b-modal
                 hide-header
                 hide-footer
@@ -62,6 +62,8 @@
 
         showModal: boolean = false;
 
+        candidates: Candidate[] = this.election.candidates ?? [];
+
         @Watch("election")
         electionOnChange(newValue: Election, _: Election) {
             this.candidates = newValue.candidates;
@@ -82,9 +84,9 @@
                 })
             };
             const voted = await this.vote(data);
+            (this as any).$snotify.success(`Your vote has been successfully registered`, `Vote for ${this.election.name} !`);
+            this.$emit('voted', this.election.id);
             this.showModal = false;
         }
-
-        candidates: Candidate[] = this.election.candidates ?? [];
     }
 </script>

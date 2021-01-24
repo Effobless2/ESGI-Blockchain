@@ -2,10 +2,12 @@
     <b-card :title="election.name" class="electionCard">
         <b-card-body>
             <b-card-text>
-                <div class="row switch" v-if="election.isCreator">
-                    <b-form-checkbox v-model="election.isOpenToVote" :disabled="!election.isOpenToVote || election.candidates.length < 2" v-on:change="openToVote" name="check-button" switch class="switch">
+                <div class="row switch">
+                    <b-button v-if="election.isCreator && !election.isOpenToVote" :disabled="!canBeStarted" v-on:click="openToVote" class="smartBtn">
                         {{ switchLabel }}
-                    </b-form-checkbox>
+                    </b-button>
+                    <div v-else></div>
+                    <p>Number of votes : {{ election.numberOfVotes }} / {{ election.maxVotes }}</p>
                 </div>
                 <div
                     class="row candidateRow"
@@ -18,7 +20,7 @@
                             animated>
                             <b-progress-bar
                                 animated
-                                :class="bestCandidate === candidate ? 'success' : 'default'"
+                                :class="isBestCandidate(candidate) ? 'success' : 'default'"
                                 :value="candidate.votes">
                             <span v-if="(candidate.votes / totalVotes * 100).toFixed(2) > 8">
                                 {{ (candidate.votes / totalVotes * 100).toFixed(2)}} %
@@ -26,7 +28,7 @@
                             </b-progress-bar>
                         </b-progress>
                     </div>
-                    <p class="col-2">{{ candidate.votes }} Votes</p>
+                    <p class="col-2">{{ candidate.votes }} Points</p>
                 </div>
                 <div class="row" v-if="canApply">
                     <b-button class="smartBtn" block v-on:click="showModal = true">
@@ -98,17 +100,26 @@
                 'Not enough candidates yet.' :
                 this.election.isOpenToVote ?
                     'Votes are processing' :
-                    'Close Applications and start Votes'
+                    this.election.maxVotes === this.election.numberOfVotes ?
+                        'Election closed.' :
+                        'Close Applications and start Votes'
         }
 
-        get bestCandidate(): Candidate {
-            let res = this.election.candidates[0];
+        isBestCandidate(candidate :Candidate): boolean {
+            let res = candidate;
             for (let i = 0; i < this.election.candidates.length; i++) {
                 if (res.votes < this.election.candidates[i].votes) {
                     res = this.election.candidates[i];
                 }
             }
-            return res
+            return res === candidate
+        }
+
+        get canBeStarted(): boolean {
+            return this.election.isCreator &&
+                this.election.candidates.length >= 2 &&
+                !this.election.isOpenToVote &&
+                this.election.numberOfVotes === 0;
         }
 
         async apply() {
@@ -128,7 +139,7 @@
         }
 
         get canApply(): boolean {
-            return this.election.canApply;
+            return this.election.isOpenForApplication;
         }
 
         async openToVote() {

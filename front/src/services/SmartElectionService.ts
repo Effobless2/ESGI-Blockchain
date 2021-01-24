@@ -16,16 +16,20 @@ export default class SmartElectionService {
 
     async getAllElections(): Promise<Election[]> {
         const result = await this.smartContract.methods.getAllElections().call();
-        console.log(result);
         return result.map((x: any, index: number) => {
             return {
                 id: index,
                 name: x.name,
-                maxVotes: x.maxVotes,
+                maxVotes: parseInt(x.maxVotes),
+                numberOfVotes: x.alreadyVoted.length,
                 isCreator: x.creator === this.web3.eth.defaultAccount,
-                isOpenToVote: x.maxVotes > x.alreadyVoted.length && 
-                              x.alreadyVoted.every((address: string) => address !== this.web3.eth.defaultAccount) &&
-                              !x.isOpen,
+                isOpenToVote: x.isOpenToVotes,
+                userCanVote: x.creator !== this.web3.eth.defaultAccount &&
+                             x.isOpenToVotes &&
+                    x.alreadyVoted.every((address: string) => address !== this.web3.eth.defaultAccount),
+                isOpenForApplication : x.isOpenForApplication &&
+                    x.creator !== this.web3.eth.defaultAccount &&
+                    x.candidates.every((c: any) => c.candidateAddress !== this.web3.eth.defaultAccount),
                 resultsAvailable: x.maxVotes === x.alreadyVoted.length,
                 candidates: x.candidates.map((y: any, cIndex: number) => {
                     return {
@@ -43,7 +47,6 @@ export default class SmartElectionService {
     }
 
     async addElection(electionName: string, candidates: {name: string, candidateAddress: string}[], votesNumber: number): Promise<Election> {
-        console.log(candidates);
         const transactionDataForElection = candidates.length > 0 ?
             await this.smartContract.methods
                 .addElectionFill(electionName, candidates, votesNumber)
@@ -54,11 +57,13 @@ export default class SmartElectionService {
         const electionId = parseInt(transactionDataForElection.events.ElectionAdded.returnValues["electionId"]);
         const result: Election = {
             id: electionId,
+            userCanVote: false,
             name: electionName,
             maxVotes: votesNumber,
             isCreator: true,
-            isOpenToVote: false,
-            resultsAvailable: false,
+            numberOfVotes: 0,
+            isOpenToVote: candidates.length > 0,
+            isOpenForApplication: candidates.length === 0,
             canApply: false,
             candidates: candidates.map((x: {name: string, candidateAddress: string}, index: number) => {
                     return {
@@ -77,28 +82,28 @@ export default class SmartElectionService {
         const transaction = await this.smartContract.methods
             .vote(id, votes)
             .send({from: this.web3.eth.defaultAccount});
-        console.log(transaction);
-        return false;
+        return true;
     }
 
     async openToVote(electionId: number): Promise<boolean> {
         const transaction = await this.smartContract.methods
             .lockElection(electionId)
             .send({from: this.web3.eth.defaultAccount});
-        console.log(transaction);
         return true;
     }
 
-    async apply(electionId: number, applicantName: string): Promise<Candidate> {
+    async apply(electionId: number, applicantName: string): Promise<{ candidate: Candidate, isCurrentUser: boolean}> {
         const transaction = await this.smartContract.methods
             .addCandidatToElection(electionId, applicantName)
             .send({from: this.web3.eth.defaultAccount});
-        console.log(transaction);
-        return {
-            name: applicantName,
-            address: this.web3.eth.defaultAccount!,
-            id: transaction.events.CandidateAdded.returnValues["candidateId"],
-            votes: 0
+        return { 
+            candidate: {
+                name: applicantName,
+                address: this.web3.eth.defaultAccount!,
+                id: transaction.events.CandidateAdded.returnValues["candidateId"],
+                votes: 0
+            },
+            isCurrentUser: true
         };
     } 
 }

@@ -30,11 +30,24 @@ export default new Vuex.Store<State>({
         lockElection(state: State, electionId: number) {
             state.elections.find(x => x.id === electionId)!.isOpenToVote = true;
         },
-        addCandidate(state: State, data: {electionId: number, candidate: Candidate}) {
+        addCandidate(state: State, data: {electionId: number, candidate: Candidate, isCurrentUser: boolean}) {
             const election = state.elections.find(x => x.id === data.electionId);
             if (election) {
                 election.candidates.push(data.candidate);
-                election.canApply = false;
+                election.canApply = !data.isCurrentUser;
+            }
+        },
+        addVotes(state: State, data: {id: number, votes: number[]}) {
+            const election = state.elections.find(x => x.id === data.id);
+            if (election) {
+                for (let vote = 0; vote < data.votes.length; vote++) {
+                    const candidate = election.candidates.find(x => x.id === data.votes[vote]);
+                    if (candidate) {
+                        candidate.votes += election.candidates.length - vote;
+                    }
+                }
+                election.numberOfVotes++;
+                election.userCanVote = false;
             }
         }
     },
@@ -56,7 +69,11 @@ export default new Vuex.Store<State>({
                 });
         },
         vote(context: { commit: any, state: State }, data: { id: number, votes: number[] }): Promise<boolean> {
-            return context.state.service!.vote(data.id, data.votes);
+
+            return context.state.service!.vote(data.id, data.votes).then((_: boolean) => {
+                context.commit('addVotes', data);
+                return true;
+            });
         },
         openToVote(context: { commit: any, state: State }, electionId: number): Promise<boolean> {
             return context.state.service!.openToVote(electionId)
@@ -69,10 +86,10 @@ export default new Vuex.Store<State>({
         },
         apply(context: { commit: any, state: State }, data: { id: number, name: string }): Promise<boolean> {
             return context.state.service!.apply(data.id, data.name)
-                .then((result: Candidate) => {
-                    context.commit('addCandidate', {electionId: data.id, candidate: result});
+                .then((result: {candidate: Candidate, isCurrentUser: boolean}) => {
+                    context.commit('addCandidate', {electionId: data.id, candidate: result, isCurrentUser: result.isCurrentUser});
                     return true;
-                })
+                });
         }
     }
 });

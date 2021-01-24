@@ -7,6 +7,8 @@ export default interface Election {
     maxVotes: number;
     isCreator: boolean;
     isOpenToVote: boolean;
-    resultsAvailable: boolean;
+    isOpenForApplication: boolean;
     canApply: boolean;
+    userCanVote: boolean;
+    numberOfVotes: number;
 }

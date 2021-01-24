@@ -4,7 +4,7 @@
             <div class="contList">
                 <elections-list
                     :selected="selected"
-                    :elections="elections.filter(x => x.isOpenToVote)"
+                    :elections="elections.filter(x => x.userCanVote)"
                     v-on:election-click="(x) => selected = x">
                 </elections-list>
             </div> 
@@ -14,7 +14,7 @@
                 <b-card-text class="defaultTitle" v-if="selected === null">
                     <h1><b>Choose an election</b></h1>
                 </b-card-text>
-                <vote-form v-else :election="selected"></vote-form>
+                <vote-form v-else :election="selected" v-on:voted="userHasVoted"></vote-form>
             </b-card>
         </div>
     </div>
@@ -39,6 +39,12 @@
         elections!: Election[];
 
         selected: Election | null = null;
+
+        userHasVoted(electionId: number) {
+            if (this.selected && this.selected.id === electionId) {
+                this.selected = null;
+            }
+        }
 
     }
 </script>
